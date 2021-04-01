@@ -1,11 +1,9 @@
+using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SourceMonitor.AzureSourceControlService.Settings;
+using SourceMonitor.Shared.Extensions;
 
 namespace SourceMonitor.AzureSourceControlService
 {
@@ -18,9 +16,20 @@ namespace SourceMonitor.AzureSourceControlService
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.AddAppSettingsJsonsAndEnvironmentVariables();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .UseStartup<Startup>()
+                        .UseKestrel((context, options) =>
+                        {
+                            var applicationSettings = new AzureApplicationSettings();
+                            context.Configuration.GetSection("AzureApplicationSettings").Bind(applicationSettings);
+                            options.Listen(IPAddress.Any, applicationSettings.Port, listenOptions => listenOptions.UseHttps());
+                        });
                 });
     }
 }

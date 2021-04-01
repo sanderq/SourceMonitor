@@ -16,6 +16,7 @@ namespace SourceMonitor.Shared.Middleware
         }
         public async Task InvokeAsync(HttpContext context)
         {
+            var i = context.Request.Headers.Keys;
             if (!context.Request.Headers.TryGetValue(SourceMonitorConstants.ApiKey, out var extractedApiKey))
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;

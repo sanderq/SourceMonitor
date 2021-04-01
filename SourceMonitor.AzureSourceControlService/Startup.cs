@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SourceMonitor.Shared.Constants;
 using SourceMonitor.Shared.Extensions;
 
 namespace SourceMonitor.AzureSourceControlService
@@ -42,6 +43,11 @@ namespace SourceMonitor.AzureSourceControlService
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SourceMonitor.AzureSourceControlService v1"));
             }
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .WithHeaders(SourceMonitorConstants.ApiKey));
 
             app.UseHttpsRedirection();
 

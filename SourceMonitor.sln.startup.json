@@ -54,7 +54,8 @@
     "MultiProjectConfigurations": {
       "Start application": {
         "Projects": {
-          "SourceMonitor.AzureSourceControlService": {} 
+          "SourceMonitor.WebApplication": {},
+          "SourceMonitor.AzureSourceControlService": {}
         } 
       } 
     }
