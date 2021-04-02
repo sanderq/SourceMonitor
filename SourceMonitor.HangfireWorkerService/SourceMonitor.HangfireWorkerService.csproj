@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>dotnet-SourceMonitor.HangfireWorkerService-8450998C-770B-4094-B4AE-CB63492E11F6</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire" Version="1.7.20" />
+    <PackageReference Include="Hangfire.Console" Version="1.4.2" />
+    <PackageReference Include="Hangfire.Heartbeat" Version="0.5.1" />
+    <PackageReference Include="Hangfire.MemoryStorage" Version="1.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SourceMonitor.Shared.BackgroundJobs\SourceMonitor.Shared.BackgroundJobs.csproj" />
+    <ProjectReference Include="..\SourceMonitor.Shared\SourceMonitor.Shared.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using SourceMonitor.Shared.Constants;
 
@@ -14,9 +15,9 @@ namespace SourceMonitor.Shared.Middleware
             _configuration = configuration;
             _next = next;
         }
+
         public async Task InvokeAsync(HttpContext context)
         {
-            var i = context.Request.Headers.Keys;
             if (!context.Request.Headers.TryGetValue(SourceMonitorConstants.ApiKey, out var extractedApiKey))
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
@@ -25,7 +26,7 @@ namespace SourceMonitor.Shared.Middleware
 
             var apiKey = _configuration.GetValue<string>(SourceMonitorConstants.ApiKey);
 
-            if (!apiKey.Equals(extractedApiKey))
+            if (!apiKey.Equals(extractedApiKey, StringComparison.Ordinal))
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                 return;

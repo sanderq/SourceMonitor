@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SourceMonitor.Shared.Constants;
 using SourceMonitor.WebApplication.Settings;
 
@@ -17,14 +16,14 @@ namespace SourceMonitor.WebApplication
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
+
+            var appsettings = builder.Configuration.GetSection("WebApplicationSettings").Get<WebApplicationSettings>();
             
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
             builder.Services.AddHttpClient("AzureSourceControlService", c =>
             {
-                var baseAddress = builder.Configuration.GetValue<string>("BaseUrl");
-                var appsettings = builder.Configuration.GetSection("WebApplicationSettings:HttpClientSettings").Get<List<HttpClientSettings>>();
-                var azureSettings = appsettings.Single(x => x.Name.Equals(SourceMonitorConstants.AzureSourceControlServiceName));
+                var azureSettings = appsettings.HttpClientSettings.Single(x => x.Name.Equals(SourceMonitorConstants.AzureSourceControlServiceName));
 
                 c.BaseAddress = new Uri($"{azureSettings.BaseUrl}:{azureSettings.Port}");
                 c.DefaultRequestHeaders.Add(SourceMonitorConstants.ApiKey, "ThisShouldBeSecret");
