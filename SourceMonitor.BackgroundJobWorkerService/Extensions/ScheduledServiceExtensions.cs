@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SourceMonitor.Shared.BackgroundJobs.Config;
 using SourceMonitor.Shared.BackgroundJobs.Jobs;
 
-namespace SourceMonitor.CronJobWorkerService.Extensions
+namespace SourceMonitor.BackgroundJobWorkerService.Extensions
 {
     public static class ScheduledServiceExtensions
     {

@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Cronos;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace SourceMonitor.Shared.BackgroundJobs.Jobs
 {
@@ -14,11 +15,13 @@ namespace SourceMonitor.Shared.BackgroundJobs.Jobs
     public abstract class CronJobService : IHostedService, IDisposable
     {
         private System.Timers.Timer _timer;
+        private readonly ILogger<CronJobService> _logger;
         private readonly CronExpression _expression;
         private readonly TimeZoneInfo _timeZoneInfo;
 
-        protected CronJobService(CronExpression cronExpression, TimeZoneInfo timeZoneInfo)
+        protected CronJobService(ILogger<CronJobService> logger, CronExpression cronExpression, TimeZoneInfo timeZoneInfo)
         {
+            _logger = logger;
             _expression = cronExpression;
             _timeZoneInfo = timeZoneInfo;
         }
@@ -46,7 +49,17 @@ namespace SourceMonitor.Shared.BackgroundJobs.Jobs
 
                     if (!cancellationToken.IsCancellationRequested)
                     {
-                        await ExecuteAsync(cancellationToken);
+                        _logger.LogInformation($"Scheduled Job {this.GetType().Name} started at {DateTime.Now.ToLocalTime()}");
+                        try
+                        {
+                            await ExecuteAsync(cancellationToken);
+
+                        }
+                        catch (Exception e)
+                        {
+                            _logger.LogError(e,$"Scheduled Job {GetType().Name} unexpectedly failed at {DateTime.Now.ToLocalTime()}");
+                        }
+                        _logger.LogInformation($"Scheduled Job {GetType().Name} stopped at {DateTime.Now.ToLocalTime()}");
                     }
 
                     if (!cancellationToken.IsCancellationRequested)
@@ -56,16 +69,14 @@ namespace SourceMonitor.Shared.BackgroundJobs.Jobs
                 };
                 _timer.Start();
             }
-            await Task.CompletedTask;
         }
 
         public abstract Task ExecuteAsync(CancellationToken cancellationToken);
         
-
-        public async Task StopAsync(CancellationToken cancellationToken)
+        public Task StopAsync(CancellationToken cancellationToken)
         {
             _timer?.Stop();
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
 
         public void Dispose()

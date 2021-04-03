@@ -1,10 +1,11 @@
-using Microsoft.Extensions.Hosting;
 using System;
-using SourceMonitor.CronJobWorkerService.Extensions;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using SourceMonitor.BackgroundJobWorkerService.Extensions;
 using SourceMonitor.Shared.BackgroundJobs.Helper;
 using SourceMonitor.Shared.BackgroundJobs.Jobs.Azure;
 
-namespace SourceMonitor.CronJobWorkerService
+namespace SourceMonitor.BackgroundJobWorkerService
 {
     public class Program
     {
@@ -15,6 +16,11 @@ namespace SourceMonitor.CronJobWorkerService
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureLogging(logging =>
+                {
+                    logging.ClearProviders();
+                    logging.AddConsole();
+                })
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddCronJob<AzureServiceJob>(config =>
