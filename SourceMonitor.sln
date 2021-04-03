@@ -14,9 +14,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceMonitor.AzureSourceCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceMonitor.WebApplication", "SourceMonitor.WebApplication\SourceMonitor.WebApplication.csproj", "{07C9467D-0B6B-4EF9-A0DF-E5FADA366BAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceMonitor.HangfireWorkerService", "SourceMonitor.HangfireWorkerService\SourceMonitor.HangfireWorkerService.csproj", "{CE0B37D0-3867-47AB-947F-EA37D694A553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SourceMonitor.Shared.BackgroundJobs", "SourceMonitor.Shared.BackgroundJobs\SourceMonitor.Shared.BackgroundJobs.csproj", "{F2CC2DB9-2E3A-4B78-AAC9-04FF5B3E38B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceMonitor.Shared.BackgroundJobs", "SourceMonitor.Shared.BackgroundJobs\SourceMonitor.Shared.BackgroundJobs.csproj", "{F2CC2DB9-2E3A-4B78-AAC9-04FF5B3E38B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceMonitor.CronJobWorkerService", "SourceMonitor.CronJobWorkerService\SourceMonitor.CronJobWorkerService.csproj", "{3FE50ECF-CE02-4905-B19F-4444D4481A69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,14 +36,14 @@ Global
 		{07C9467D-0B6B-4EF9-A0DF-E5FADA366BAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07C9467D-0B6B-4EF9-A0DF-E5FADA366BAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07C9467D-0B6B-4EF9-A0DF-E5FADA366BAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE0B37D0-3867-47AB-947F-EA37D694A553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE0B37D0-3867-47AB-947F-EA37D694A553}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE0B37D0-3867-47AB-947F-EA37D694A553}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE0B37D0-3867-47AB-947F-EA37D694A553}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F2CC2DB9-2E3A-4B78-AAC9-04FF5B3E38B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F2CC2DB9-2E3A-4B78-AAC9-04FF5B3E38B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2CC2DB9-2E3A-4B78-AAC9-04FF5B3E38B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2CC2DB9-2E3A-4B78-AAC9-04FF5B3E38B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FE50ECF-CE02-4905-B19F-4444D4481A69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FE50ECF-CE02-4905-B19F-4444D4481A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FE50ECF-CE02-4905-B19F-4444D4481A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FE50ECF-CE02-4905-B19F-4444D4481A69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

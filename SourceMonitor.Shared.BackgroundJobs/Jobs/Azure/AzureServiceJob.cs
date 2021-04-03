@@ -1,17 +1,19 @@
-﻿using System.Threading.Tasks;
-using Hangfire.Console;
-using Hangfire.Server;
-using SourceMonitor.Shared.Constants;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using SourceMonitor.Shared.BackgroundJobs.Config;
 
 namespace SourceMonitor.Shared.BackgroundJobs.Jobs.Azure
 {
-    public class AzureServiceJob : BaseJob
+    public class AzureServiceJob : CronJobService
     {
-        public override string Queue => SourceMonitorConstants.AzureSourceControlServiceName.ToLowerInvariant();
-
-        public override async Task ExecuteAsync(PerformContext context)
+        public AzureServiceJob(IScheduleConfig<AzureServiceJob> config) : base(config.CronExpression, config.TimeZoneInfo)
         {
-            context.WriteLine("Error!");
+        }
+
+        public override async Task ExecuteAsync(CancellationToken cancellationToken)
+        {
+            Console.WriteLine($"Fired at {DateTime.Now.ToUniversalTime()}");
         }
     }
 }
