@@ -7,11 +7,6 @@ using Microsoft.Extensions.Logging;
 
 namespace SourceMonitor.Shared.BackgroundJobs.Jobs
 {
-
-    /// <summary>
-    /// Credits goes to Changhui Xu
-    /// https://codeburst.io/schedule-cron-jobs-using-hostedservice-in-asp-net-core-e17c47ba06
-    /// </summary>
     public abstract class CronJobService : IHostedService, IDisposable
     {
         private System.Timers.Timer _timer;
