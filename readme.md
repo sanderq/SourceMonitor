@@ -11,5 +11,4 @@ When done ;), this project will retrieve the used .Net frameworks within the rep
 - retrieve used NPM packages
 
 ## Shout out
-Goes to 
 - Changhui Xu (https://codeburst.io/schedule-cron-jobs-using-hostedservice-in-asp-net-core-e17c47ba06)
